@@ -1,11 +1,15 @@
 require("dotenv").config();
 const axios = require("axios");
 
+let prevMinutes = 0;
+
 // executes every minute
 setInterval(() => {
     const time = new Date();
-    const hours = time.getHours();
     const minutes = time.getMinutes();
+    if (prevMinutes === minutes) return;
+    prevMinutes = minutes;
+    const hours = time.getHours();
 
     axios({
         method: "patch",
@@ -15,7 +19,7 @@ setInterval(() => {
         },
         data: {
             custom_status: {
-                text: `${hours > 4 && hours < 21 ? "gm" : "gn"} it's ${hours % 12 || 12}:${minutes} ${hours >= 12 ? "pm" : "am"}`,
+                text: `${hours > 4 && hours < 21 ? "gm" : "gn"} it's ${hours % 12 || 12}:${minutes < 10 ? "0" : ""}${minutes} ${hours >= 12 ? "pm" : "am"}`,
                 expires_at: null
             }
         }
@@ -26,4 +30,4 @@ setInterval(() => {
     .catch(err => {
         console.log(err);
     });
-}, 1000 * 60);
+}, 100);
