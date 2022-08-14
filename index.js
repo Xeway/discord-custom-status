@@ -9,7 +9,7 @@ setInterval(() => {
     const minutes = time.getMinutes();
     if (prevMinutes === minutes) return;
     prevMinutes = minutes;
-    const hours = time.getHours();
+    const hours = parseInt(time.toLocaleTimeString('fr-FR').split(":")[0], 10);
 
     axios({
         method: "patch",
