@@ -1,8 +1,13 @@
 require("dotenv").config();
 const axios = require("axios");
 
-(async () => {
-    await axios({
+// executes every minute
+setInterval(() => {
+    const time = new Date();
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+
+    axios({
         method: "patch",
         url: "https://discordapp.com/api/users/@me/settings",
         headers: {
@@ -10,7 +15,7 @@ const axios = require("axios");
         },
         data: {
             custom_status: {
-                text: "yikes",
+                text: `${hours > 4 && hours < 21 ? "gm" : "gn"} it's ${hours % 12 || 12}:${minutes} ${hours >= 12 ? "pm" : "am"}`,
                 expires_at: null
             }
         }
@@ -21,4 +26,4 @@ const axios = require("axios");
     .catch(err => {
         console.log(err);
     });
-})();
+}, 1000 * 60);
