@@ -19,7 +19,7 @@ setInterval(() => {
         },
         data: {
             custom_status: {
-                text: `${hours > 4 && hours < 21 ? "gm" : "gn"} it's ${hours % 12 || 12}:${minutes < 10 ? "0" : ""}${minutes} ${hours >= 12 ? "pm" : "am"}`,
+                text: `${hours > 4 && hours < 21 ? "gm" : "gn"} it's ${hours % 12 || 12}:${(minutes < 10 ? "0" : "") + minutes} ${hours >= 12 ? "pm" : "am"}`,
                 expires_at: null
             }
         }
